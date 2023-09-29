@@ -3,7 +3,7 @@
 <!-- ![App Logo](app-logo.png) -->
 
 ## Table of Contents
-- [Free Lunch App](#language-translator-ai-app)
+- [Language TranslationAI Chat App](#language-translator-ai-app)
     - [Table of Contents](#table-of-contents)
     - [Introduction](#introduction)
     - [Features](#features)
