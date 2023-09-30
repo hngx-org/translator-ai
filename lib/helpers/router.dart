@@ -44,7 +44,6 @@ class RouteHelper {
           viewToShow: const HomeScreen(),
         );
 
-
       case loginRoute:
         return _getTransistionPageRoute(
           type: PageTransitionType.rightToLeft,
@@ -77,7 +76,6 @@ class RouteHelper {
         );
 
       case settingsRoute:
-       
         return _getTransistionPageRoute(
           type: PageTransitionType.bottomToTop,
           routeName: settings.name!,
