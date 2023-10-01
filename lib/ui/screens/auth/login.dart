@@ -192,8 +192,8 @@ class _SignInState extends State<SignIn> {
                             color: AppColors.blackColor),
                       ),
                       onTap: (){
-                        nextScreen(context,RouteHelper.forgotPasswordRoute,
-                        );
+                        Navigator.of(context)
+                            .pushNamed(RouteHelper.forgotPasswordRoute);                        // );
                       },
                     ),
                   ),
@@ -211,6 +211,7 @@ class _SignInState extends State<SignIn> {
                     color: AppColors.primary,
                     content: 'Sign In',
                     onTap: () {
+                      Navigator.of(context).pushNamed(RouteHelper.home);
 
                     },
                   ),

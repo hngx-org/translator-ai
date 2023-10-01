@@ -52,7 +52,7 @@ class _HomeState extends State<Home> {
         type: BottomNavigationBarType.fixed,
         showUnselectedLabels: true,
         onTap: _selectPage,
-        backgroundColor: const Color(0xffF5C2B1),
+        backgroundColor: AppColors.primary,
         unselectedItemColor: AppColors.whiteColor,
         selectedItemColor: Colors.black,
         currentIndex: _selectedPageIndex,
