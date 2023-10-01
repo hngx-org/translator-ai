@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:translator_ai/ui/screens/auth/login.dart';
+import 'package:translator_ai/ui/screens/auth/signUp.dart';
+import 'package:translator_ai/ui/screens/auth/spalshPage.dart';
 import 'package:translator_ai/ui/screens/onBoarding.dart';
 import 'helpers/locator.dart';
 import 'helpers/router.dart';
@@ -23,7 +26,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,
-        home: const OnboardingContent(),
+        home: const SplashPage(),
         onGenerateRoute: RouteHelper().generateRoute,
       ),
     );

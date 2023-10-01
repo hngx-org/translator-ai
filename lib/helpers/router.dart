@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:translator_ai/ui/screens/auth/onBoardingPage.dart';
+import 'package:translator_ai/ui/screens/auth/spalshPage.dart';
 import '../ui/home.dart';
 import '../ui/screens/HomeScreen.dart';
 import '../ui/screens/auth/forgot_password.dart';
@@ -29,7 +31,8 @@ class RouteHelper {
   static const String withdrawalRoute = "WithdrawalScreen";
   static const String withdrawalConfirmRoute = "WithdrawalConfirmScreen";
   static const String settingsRoute = "SettingScreen";
-
+  static const String splashRoute = "SplashPage";
+  static const String onBoardingRoute = "onBoardingPage";
   Route<dynamic>? generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case home:
@@ -80,6 +83,22 @@ class RouteHelper {
           type: PageTransitionType.bottomToTop,
           routeName: settings.name!,
           viewToShow: Settings(),
+        );
+
+
+      case splashRoute:
+
+        return _getTransistionPageRoute(
+          type: PageTransitionType.bottomToTop,
+          routeName: settings.name!,
+          viewToShow: SplashPage(),
+        );
+      case onBoardingRoute:
+
+        return _getTransistionPageRoute(
+          type: PageTransitionType.bottomToTop,
+          routeName: settings.name!,
+          viewToShow: OnBoardingScreen(),
         );
 
       default:
