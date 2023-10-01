@@ -79,7 +79,7 @@ class OnBoardingScreen extends StatelessWidget {
                               content: 'Login',
                               onTap: () {
                                 Navigator.of(context)
-                                    .pushNamed(RouteHelper.settingsRoute);
+                                    .pushNamed(RouteHelper.loginRoute);
                               }),
                         ],
                       ),
