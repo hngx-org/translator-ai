@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:translator_ai/helpers/router.dart';
 import 'package:translator_ai/ui/components/custom_button.dart';
 import 'package:translator_ai/utils/colors.dart';
 import 'package:translator_ai/utils/size_calculator.dart';
@@ -18,6 +19,24 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0,
+          leading: Builder(
+            builder: (BuildContext context) {
+              return InkWell(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Icon(
+                  Icons.arrow_back_ios,
+                  size: 23,
+                  color: Color.fromRGBO(89, 51, 8, 1),
+                ),
+              );
+            },
+          ),
+        ),
         backgroundColor: AppColors.whiteColor,
         body: SafeArea(
           child: Padding(
@@ -25,13 +44,10 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 EdgeInsets.symmetric(horizontal: sizer(false, 30, context)),
             child: Column(
               children: [
-                SizedBox(
-                  height: sizer(false, 60, context),
-                ),
                 Text(
                   "Forgot Your Password?",
                   style: GoogleFonts.nunito(
-                      fontSize: 20,
+                      fontSize: 24,
                       fontWeight: FontWeight.bold,
                       color: AppColors.primary),
                 ),
@@ -39,7 +55,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 Text(
                   "Enter the Email Address associated with your account",
                   style: GoogleFonts.nunito(
-                      fontSize: sizer(true, 14, context),
+                      fontSize: sizer(true, 16, context),
                       fontWeight: FontWeight.w600,
                       color: AppColors.blackColor),
                   maxLines: 3,
@@ -68,7 +84,10 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     height: sizer(false, 50, context),
                     color: AppColors.primary,
                     content: "Verify Email",
-                    onTap: () {})
+                    onTap: () {
+                      Navigator.of(context)
+                          .pushNamed(RouteHelper.passwordRecoveryRoute);
+                    })
               ],
             ),
           ),

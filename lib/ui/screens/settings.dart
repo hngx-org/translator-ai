@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:translator_ai/helpers/router.dart';
 import 'package:translator_ai/ui/components/custom_button.dart';
 import 'package:translator_ai/utils/colors.dart';
+import 'package:translator_ai/utils/size_calculator.dart';
 
 class Settings extends StatefulWidget {
   const Settings({super.key});
@@ -18,29 +20,30 @@ class _SettingsState extends State<Settings> {
       backgroundColor: AppColors.whiteColor,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 30),
+          padding: EdgeInsets.symmetric(
+            horizontal: sizer(false, 30, context),
+          ),
           child: Column(
             children: [
-              SizedBox(height: 24),
+              SizedBox(
+                height: sizer(false, 24, context),
+              ),
               Center(
                 child: Stack(
                   clipBehavior: Clip.none,
                   children: [
                     Container(
-                        height: 80,
-                        width: 80,
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                                color: AppColors.whiteColor, width: 2)),
-                        child: Icon(
-                          Icons.person,
-                          size: 50,
-                        )
-                        // decoration: const BoxDecoration(
-                        //     image: DecorationImage(
-                        //         image: AssetImage('assets/images/account.png'))),
-                        ),
+                      height: sizer(false, 80, context),
+                      width: sizer(true, 80, context),
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                              color: AppColors.whiteColor, width: 2)),
+                      child: Image.asset("images/naruto.png"),
+                      // decoration: const BoxDecoration(
+                      //     image: DecorationImage(
+                      //         image: AssetImage('assets/images/account.png'))),
+                    ),
                     Positioned(
                         bottom: -13,
                         right: -13,
@@ -55,30 +58,40 @@ class _SettingsState extends State<Settings> {
                   ],
                 ),
               ),
-              SizedBox(height: 20),
+              SizedBox(
+                height: sizer(false, 24, context),
+              ),
               Text(
                 "AbdulRasak Mubarak",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                ),
+                style: GoogleFonts.nunito(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    color: AppColors.blackColor),
               ),
               Text(
-                "RasakMubarak09@gmail.com",
-                style: TextStyle(fontSize: 20, color: AppColors.blackColor),
+                "rasakMubarak09@gmail.com",
+                style: GoogleFonts.nunito(
+                    fontSize: 14, color: AppColors.blackColor),
+              ),
+              SizedBox(
+                height: sizer(false, 24, context),
               ),
               CustomButton(
-                  width: 80,
-                  height: 80,
-                  color: AppColors.blackColor,
+                  height: sizer(false, 40, context),
+                  width: sizer(true, 220, context),
+                  color: AppColors.primary,
                   content: "Edit Profile",
                   onTap: () {}),
+              SizedBox(
+                height: sizer(false, 34, context),
+              ),
               Expanded(
                   child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
                     padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                    color: AppColors.primary,
+
                     // width: Sizer.screenWidth,
                     child: Text('Account',
                         style: TextStyle(

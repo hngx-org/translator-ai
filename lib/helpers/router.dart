@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:translator_ai/ui/screens/auth/onBoardingPage.dart';
+import 'package:translator_ai/ui/screens/auth/password_recovery.dart';
 import 'package:translator_ai/ui/screens/auth/spalshPage.dart';
 import '../ui/home.dart';
 import '../ui/screens/HomeScreen.dart';
@@ -33,6 +34,7 @@ class RouteHelper {
   static const String settingsRoute = "SettingScreen";
   static const String splashRoute = "SplashPage";
   static const String onBoardingRoute = "onBoardingPage";
+  static const String passwordRecoveryRoute = "PasswordRecovery";
   Route<dynamic>? generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case home:
@@ -59,6 +61,12 @@ class RouteHelper {
           routeName: settings.name!,
           viewToShow: const ForgotPassword(),
         );
+      case resetPasswordRoute:
+        return _getTransistionPageRoute(
+          type: PageTransitionType.rightToLeft,
+          routeName: settings.name!,
+          viewToShow: ResetPassword(),
+        );
       // case resetPasswordRoute:
       //   return _getTransistionPageRoute(
       //     type: PageTransitionType.rightToLeft,
@@ -82,23 +90,25 @@ class RouteHelper {
         return _getTransistionPageRoute(
           type: PageTransitionType.bottomToTop,
           routeName: settings.name!,
-          viewToShow: Settings(),
+          viewToShow: const Settings(),
         );
-
 
       case splashRoute:
-
         return _getTransistionPageRoute(
           type: PageTransitionType.bottomToTop,
           routeName: settings.name!,
-          viewToShow: SplashPage(),
+          viewToShow: const SplashPage(),
         );
       case onBoardingRoute:
-
         return _getTransistionPageRoute(
           type: PageTransitionType.bottomToTop,
           routeName: settings.name!,
-          viewToShow: OnBoardingScreen(),
+          viewToShow: const OnBoardingScreen(),
+        );
+      case passwordRecoveryRoute:
+        return _getPageRoute(
+          routeName: settings.name!,
+          viewToShow: const PasswordRecovery(),
         );
 
       default:
