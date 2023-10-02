@@ -16,9 +16,10 @@ class SubscriptionScreen extends StatefulWidget {
 class _SubscriptionScreenState extends State<SubscriptionScreen> {
   @override
   Widget build(BuildContext context) {
-    return   Scaffold(
+    return Scaffold(
       appBar: AppBar(
-        title: Text('Subscription'),
+        title: Center(child: Text('Subscription')),
+        automaticallyImplyLeading: false,
       ),
       body: Center(
         child: Column(
