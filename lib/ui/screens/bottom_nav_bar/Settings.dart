@@ -182,15 +182,16 @@ class _SettingsState extends State<Settings> {
                   color: AppColors.primary,
                   content: "Logout",
                   onTap: () async {
-                    try {
-                      final res = await _submit(context);
-                      if (res == "success") {
-                        Navigator.pushReplacementNamed(
-                            context, RouteHelper.loginRoute);
-                      } else {}
-                    } catch (e) {
-                      print("$e");
-                    }
+                    Navigator.of(context).pushNamed(RouteHelper.loginRoute);
+                    // try {
+                    //   final res = await _submit(context);
+                    //   if (res == "success") {
+                    //     Navigator.pushReplacementNamed(
+                    //         context, RouteHelper.loginRoute);
+                    //   } else {}
+                    // } catch (e) {
+                    //   print("$e");
+                    // }
                   }),
               SizedBox(
                 height: sizer(false, 34, context),
