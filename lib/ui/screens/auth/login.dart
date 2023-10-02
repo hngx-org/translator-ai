@@ -2,19 +2,25 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:translator_ai/ui/components/bottom_navigator.dart';
 
+
 import '../../../helpers/router.dart';
+import '../../../providers/auth.dart';
 import '../../../utils/colors.dart';
 import '../../../utils/size_calculator.dart';
 import '../../components/custom_button.dart';
 
+
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
+
 
   @override
   State<SignIn> createState() => _SignInState();
 }
+
 
 class _SignInState extends State<SignIn> {
   final _formkey = GlobalKey<FormState>();
@@ -22,7 +28,9 @@ class _SignInState extends State<SignIn> {
   TextEditingController passwordcontroller = TextEditingController();
   bool _issecured = true;
 
+
   bool _isLoading = false; // Track loading state
+
 
   String? _validateEmail(String? email) {
     RegExp emailRegex =
@@ -33,6 +41,55 @@ class _SignInState extends State<SignIn> {
     }
     return null;
   }
+  Future<String> _submit(BuildContext context) async {
+    setState(() {
+      _isLoading = true;
+    });
+    final authProvider = Provider.of<Auth>(context, listen: false);
+
+
+    try {
+      // Get the email and password from the input fields
+      final email =
+          emailcontroller.text; // Get the email from your TextFormField
+      final password =
+          passwordcontroller.text; // Get the password from your TextFormField
+
+
+      // Call the signUp method from your provider
+      final userData = await authProvider.login(email, password);
+      setState(() {
+        _isLoading = false;
+      });
+      if (userData == "successsuccess"){
+        return "success";
+      }else{
+        return "";
+      }
+    } catch (error) {
+      // Handle the error, e.g., show an error message
+      print(error);
+
+
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Error'),
+          content: Text('Something went wrong: $error'),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+            ),
+          ],
+        ),
+      );
+      return "${error.toString()}";
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +105,7 @@ class _SignInState extends State<SignIn> {
             child: const Icon(
               Icons.arrow_back_ios,
               size: 23,
-              color: Color.fromRGBO(89, 51, 8, 1),
+              color: AppColors.primary,
             ),
           );
         },
@@ -57,7 +114,7 @@ class _SignInState extends State<SignIn> {
       title: Text(
         'Sign In',
         style: GoogleFonts.nunito(
-          color: const Color(0xFF583208),
+          color: AppColors.primary,
           fontSize: 24,
           fontWeight: FontWeight.w700,
           height: 1.0,
@@ -75,22 +132,26 @@ class _SignInState extends State<SignIn> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 const SizedBox(
-                  height: 10,
+                  height: 30,
                 ),
-                Text(
-                  'Please ensure that you provide accurate information in this form to avoid any hiccups in this process. ',
-                  style: GoogleFonts.nunito(
-                    fontSize: 16,
-                    fontWeight: FontWeight.normal,
-                    letterSpacing: 0.35,
-                    color: const Color.fromRGBO(0, 0, 0, 1),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: Text(
+                    'Enter your login details. ',
+                    style: GoogleFonts.nunito(
+                      fontSize: 16,
+                      fontWeight: FontWeight.normal,
+                      letterSpacing: 0.35,
+                      color: const Color.fromRGBO(0, 0, 0, 1),
+                    ),
+                    textAlign: TextAlign.center,
                   ),
                 ),
                 const SizedBox(
-                  height: 20,
+                  height: 40,
                 ),
                 const Text(
-                  "Work Email Address",
+                  "Email Address",
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
@@ -210,9 +271,24 @@ class _SignInState extends State<SignIn> {
                     isTextBig: false,
                     color: AppColors.primary,
                     content: 'Sign In',
-                    onTap: () {
-                      Navigator.of(context).pushNamed(RouteHelper.home);
-
+                    onTap: () async {
+                      Navigator.of(context)
+                          .pushNamed(RouteHelper.home);
+                      // try {
+                      //   final res =  await _submit(context);
+                      //   if (res == "success"){
+                      //     Navigator.of(context).pushNamed(RouteHelper.home);
+                      //
+                      //
+                      //
+                      //
+                      //   }else{
+                      //
+                      //
+                      //   }
+                      // }catch(e){
+                      //   print("$e");
+                      // }
                     },
                   ),
                 )

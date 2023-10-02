@@ -9,8 +9,8 @@ import '../ui/screens/auth/forgot_password.dart';
 import '../ui/screens/auth/login.dart';
 import '../ui/screens/auth/reset_password.dart';
 import '../ui/screens/auth/signUp.dart';
+import '../ui/screens/bottom_nav_bar/Settings.dart';
 import '../ui/screens/bottom_nav_bar/Subscription.dart';
-import '../ui/screens/settings.dart';
 import 'dialog_helper/dialog_manager.dart';
 
 class RouteHelper {
