@@ -27,32 +27,32 @@ class CustomButton extends StatelessWidget {
       onTap: onTap,
       child: Container(
         width: width,
-        height: height,
+        height: 60,
         padding: const EdgeInsets.all(10),
         decoration: ShapeDecoration(
           color: color,
           shape: RoundedRectangleBorder(
-            side: const BorderSide(width: 1),
+            // side: const BorderSide(width: 1),
             borderRadius: BorderRadius.circular(12),
           ),
-          shadows: const [
-            BoxShadow(
-              color: Colors.black,
-              blurRadius: 0,
-              offset: Offset(2, 2),
-              spreadRadius: 0,
-            ),
-          ],
+          // shadows: const [
+          //   BoxShadow(
+          //     color: Colors.black,
+          //     blurRadius: 0,
+          //     offset: Offset(2, 2),
+          //     spreadRadius: 0,
+          //   ),
+          // ],
         ),
         child: Center(
           child: Text(
             content,
             style: GoogleFonts.nunito(
-              color: Colors.black,
+              color: Colors.white,
               fontSize: isTextBig
-                  ? 16
+                  ? 14
                   : singleBigButton
-                      ? sizer(true, 16, context)
+                      ? sizer(true, 15, context)
                       : 14,
               fontWeight: FontWeight.w700,
             ),

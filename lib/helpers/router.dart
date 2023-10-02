@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:translator_ai/ui/screens/auth/onBoardingPage.dart';
+import 'package:translator_ai/ui/screens/auth/password_recovery.dart';
+import 'package:translator_ai/ui/screens/auth/spalshPage.dart';
 import '../ui/home.dart';
 import '../ui/screens/HomeScreen.dart';
 import '../ui/screens/auth/forgot_password.dart';
 import '../ui/screens/auth/login.dart';
 import '../ui/screens/auth/reset_password.dart';
 import '../ui/screens/auth/signUp.dart';
+import '../ui/screens/bottom_nav_bar/Settings.dart';
 import '../ui/screens/bottom_nav_bar/Subscription.dart';
-import '../ui/screens/settings.dart';
 import 'dialog_helper/dialog_manager.dart';
 
 class RouteHelper {
@@ -29,7 +32,9 @@ class RouteHelper {
   static const String withdrawalRoute = "WithdrawalScreen";
   static const String withdrawalConfirmRoute = "WithdrawalConfirmScreen";
   static const String settingsRoute = "SettingScreen";
-
+  static const String splashRoute = "SplashPage";
+  static const String onBoardingRoute = "onBoardingPage";
+  static const String passwordRecoveryRoute = "PasswordRecovery";
   Route<dynamic>? generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case home:
@@ -44,7 +49,6 @@ class RouteHelper {
           viewToShow: const HomeScreen(),
         );
 
-
       case loginRoute:
         return _getTransistionPageRoute(
           type: PageTransitionType.rightToLeft,
@@ -56,6 +60,12 @@ class RouteHelper {
           type: PageTransitionType.rightToLeft,
           routeName: settings.name!,
           viewToShow: const ForgotPassword(),
+        );
+      case resetPasswordRoute:
+        return _getTransistionPageRoute(
+          type: PageTransitionType.rightToLeft,
+          routeName: settings.name!,
+          viewToShow: ResetPassword(),
         );
       // case resetPasswordRoute:
       //   return _getTransistionPageRoute(
@@ -77,11 +87,28 @@ class RouteHelper {
         );
 
       case settingsRoute:
-       
         return _getTransistionPageRoute(
           type: PageTransitionType.bottomToTop,
           routeName: settings.name!,
-          viewToShow: Settings(),
+          viewToShow: const Settings(),
+        );
+
+      case splashRoute:
+        return _getTransistionPageRoute(
+          type: PageTransitionType.bottomToTop,
+          routeName: settings.name!,
+          viewToShow: const SplashPage(),
+        );
+      case onBoardingRoute:
+        return _getTransistionPageRoute(
+          type: PageTransitionType.bottomToTop,
+          routeName: settings.name!,
+          viewToShow: const OnBoardingScreen(),
+        );
+      case passwordRecoveryRoute:
+        return _getPageRoute(
+          routeName: settings.name!,
+          viewToShow: const PasswordRecovery(),
         );
 
       default:

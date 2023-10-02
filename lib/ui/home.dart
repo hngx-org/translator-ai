@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:translator_ai/ui/screens/settings.dart';
 import '../utils/colors.dart';
 import 'screens/HomeScreen.dart';
 import 'screens/bottom_nav_bar/Subscription.dart';
@@ -52,7 +51,7 @@ class _HomeState extends State<Home> {
         type: BottomNavigationBarType.fixed,
         showUnselectedLabels: true,
         onTap: _selectPage,
-        backgroundColor: const Color(0xffF5C2B1),
+        backgroundColor: AppColors.primary,
         unselectedItemColor: AppColors.whiteColor,
         selectedItemColor: Colors.black,
         currentIndex: _selectedPageIndex,

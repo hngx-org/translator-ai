@@ -1,6 +1,6 @@
 {
-    "name": "translator_ai",
-    "short_name": "translator_ai",
+    "name": "hngtest",
+    "short_name": "hngtest",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
