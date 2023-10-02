@@ -42,7 +42,6 @@ dependencies:
   page_transition: ^2.1.0
   provider: ^6.0.5
   shared_preferences: ^2.2.1
-  language_pickers: ^0.2.0+1
 
 
 dev_dependencies:
