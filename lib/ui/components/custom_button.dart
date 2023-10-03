@@ -27,7 +27,7 @@ class CustomButton extends StatelessWidget {
       onTap: onTap,
       child: Container(
         width: width,
-        height: height,
+        height: 60,
         padding: const EdgeInsets.all(10),
         decoration: ShapeDecoration(
           color: color,
@@ -50,9 +50,9 @@ class CustomButton extends StatelessWidget {
             style: GoogleFonts.nunito(
               color: Colors.white,
               fontSize: isTextBig
-                  ? 16
+                  ? 14
                   : singleBigButton
-                      ? sizer(true, 16, context)
+                      ? sizer(true, 15, context)
                       : 14,
               fontWeight: FontWeight.w700,
             ),

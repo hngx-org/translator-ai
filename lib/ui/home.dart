@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:translator_ai/ui/screens/settings.dart';
 import '../utils/colors.dart';
 import 'screens/HomeScreen.dart';
 import 'screens/bottom_nav_bar/Subscription.dart';

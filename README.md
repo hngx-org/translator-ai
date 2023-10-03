@@ -69,10 +69,30 @@ Before you begin, ensure you have met the following requirements:
 2. Follow the on-screen instructions to register or log in and start using the app.
 
 ## App Screenshots
+<img src="https://github.com/hngx-org/translator-ai/assets/57020210/e5838686-aa01-476e-93c4-b09bf54299a0" width="300" height="600">
+
+<img src="https://github.com/hngx-org/translator-ai/assets/57020210/11e2e80d-1792-4363-9b61-07f53281c94c" width="300" height="600">
+
+<img src="https://github.com/hngx-org/translator-ai/assets/57020210/b3e76ec8-d28f-4980-8edc-bf4cf43d9520" width="300" height="600">
+
+<img src="https://github.com/hngx-org/translator-ai/assets/57020210/11c87228-de30-4037-b767-146f3016eb69" width="300" height="600">
+
+<img src="https://github.com/hngx-org/translator-ai/assets/57020210/bbe19838-f70a-4ea8-a04a-5aa2c4894785" width="300" height="600">
+
+<img src="https://github.com/hngx-org/translator-ai/assets/57020210/be1ff814-df11-4dca-b974-9bd758940c29" width="300" height="600">
+
+<img src="https://github.com/hngx-org/translator-ai/assets/57020210/e7eef6d3-9161-4d41-b157-8aaa268c21e1" width="300" height="600">
+
+<img src="https://github.com/hngx-org/translator-ai/assets/57020210/eecf301a-092a-4034-b606-def0d0b29274" width="300" height="600">
+
+<img src="https://github.com/hngx-org/translator-ai/assets/57020210/8caec543-ef91-40d3-9aaa-72a8a6a7a5e4" width="300" height="600">
+
+<img src="https://github.com/hngx-org/translator-ai/assets/57020210/794755a2-4e26-4151-b2bf-55afa602424d" width="300" height="600">
 
 
 
 ## Test
+
 
 ## Contributing
 
