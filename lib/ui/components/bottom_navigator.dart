@@ -12,15 +12,14 @@ void nextScreenReplace(context, screen) {
   );
 }
 
-void showSnackbar(context, Color color,  message) {
-
+void showSnackbar(context, Color color, message) {
   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
     content: Text(
       message,
       style: const TextStyle(fontSize: 14),
     ),
     backgroundColor: color,
-    duration: const Duration(seconds: 2),
+    duration: const Duration(seconds: 3),
     action: SnackBarAction(
       label: "OK",
       onPressed: () {},
@@ -28,7 +27,6 @@ void showSnackbar(context, Color color,  message) {
     ),
   ));
 }
-
 
 Widget buttonNext(
     double width, double height, Color color, String content, context, screen) {
@@ -111,4 +109,3 @@ Widget buttonPop(
     ),
   );
 }
-

@@ -160,16 +160,16 @@ class _SettingsState extends State<Settings> {
                 height: sizer(false, 24, context),
               ),
               Text(
-                // "${authProvider.name}",
-                "Mubarak",
+                "${authProvider.name}",
+                // "Mubarak",
                 style: GoogleFonts.nunito(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
                     color: AppColors.blackColor),
               ),
               Text(
-                // "${authProvider.email}",
-                " mubarak@gmail.com",
+                "${authProvider.email}",
+                // " mubarak@gmail.com",
                 style: GoogleFonts.nunito(
                     fontSize: 14, color: AppColors.blackColor),
               ),
@@ -182,16 +182,16 @@ class _SettingsState extends State<Settings> {
                   color: AppColors.primary,
                   content: "Logout",
                   onTap: () async {
-                    Navigator.of(context).pushNamed(RouteHelper.loginRoute);
-                    // try {
-                    //   final res = await _submit(context);
-                    //   if (res == "success") {
-                    //     Navigator.pushReplacementNamed(
-                    //         context, RouteHelper.loginRoute);
-                    //   } else {}
-                    // } catch (e) {
-                    //   print("$e");
-                    // }
+                    // Navigator.of(context).pushNamed(RouteHelper.loginRoute);
+                    try {
+                      final res = await _submit(context);
+                      if (res == "success") {
+                        Navigator.pushReplacementNamed(
+                            context, RouteHelper.loginRoute);
+                      } else {}
+                    } catch (e) {
+                      print("$e");
+                    }
                   }),
               SizedBox(
                 height: sizer(false, 34, context),
