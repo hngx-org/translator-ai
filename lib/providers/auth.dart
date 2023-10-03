@@ -15,12 +15,14 @@ class Auth extends ChangeNotifier {
   int? _userId;
   String? _email;
   String? _name;
-   final authRepository = Authentication();
-
+  String? _fromLanguage;
+  String? _toLanguage;
+  final authRepository = Authentication();
 
   get name => _name;
   get email => _email;
-
+  get fromLanguage => fromLanguage;
+  get toLanguage => toLanguage;
   int? get userId {
     return _userId;
   }
@@ -30,6 +32,7 @@ class Auth extends ChangeNotifier {
     notifyListeners();
     return true;
   }
+
 
   Future<bool> setEmail(String value) async {
     _email = value;
@@ -43,15 +46,24 @@ class Auth extends ChangeNotifier {
     return true;
   }
 
+  Future<bool> setfromLanguage(String value) async {
+    _fromLanguage = value;
+    notifyListeners();
+    return true;
+  }
+  Future<bool> settoLanguage(String value) async {
+    _toLanguage = value;
+    notifyListeners();
+    return true;
+  }
   Future signUp(String fullname, String email, String password) async {
-
-    try{
+    try {
       final response = await authRepository.signUp(email, fullname, password);
       // if (response != null){
       print(response?.email);
       notifyListeners();
       return "successsuccess";
-    // } else {
+      // } else {
       print("hi2");
       // Handle the error
       // throw HttpException(responseData['details']);
@@ -66,13 +78,12 @@ class Auth extends ChangeNotifier {
       //     backgroundColor: Colors.red,
       //   ),
       // ));
-   // }
-  } catch(e) {
+      // }
+    } catch (e) {
       print("Error signing Up ${e.toString()}");
       return "${e.toString()}";
-
     }
-    }
+  }
 
   // print('Post successful');
 
@@ -111,7 +122,8 @@ class Auth extends ChangeNotifier {
       // await getUserProfile();
       await setName(response.name);
       await setEmail(response.email);
-        notifyListeners();
+      await saveString("cookie", response.cookie);
+      notifyListeners();
 
       return "successsuccess";
       // }
@@ -120,7 +132,7 @@ class Auth extends ChangeNotifier {
       //   return response
       //       .statusCode; // User is not valid (credentials are incorrect)
       // }
-    } catch ( e) {
+    } catch (e) {
       print('Error logging in: $e');
       return "${e.toString()}";
     }
@@ -130,16 +142,14 @@ class Auth extends ChangeNotifier {
     try {
       final response = await authRepository.getUser();
 
-        print('>>>Admin when on home screen : ${response["name"]}');
+      print('>>>Admin when on home screen : ${response["name"]}');
 
-        await setName(response["name"]);
-        await setEmail(response["email"]);
+      await setName(response["name"]);
+      await setEmail(response["email"]);
 
-        notifyListeners();
+      notifyListeners();
 
-
-        // print('Post successful');
-
+      // print('Post successful');
     } catch (e) {
       print('Error logging in: $e');
       return "${e.toString()}";
@@ -151,29 +161,25 @@ class Auth extends ChangeNotifier {
     await prefs.setString(key, value);
   }
 
-  clearString(String key) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.remove(key);
-  }
-
-  Future<String?> getString(String key) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString(key);
-  }
-
-
+  // clearString(String key) async {
+  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   prefs.remove(key);
+  // }
+  //
+  // Future<String?> getString(String key) async {
+  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   return prefs.getString(key);
+  // }
 
   Future logout() async {
     try {
       await authRepository.logout(email);
-      notifyListeners();
 
+      notifyListeners();
     } catch (e) {
       print('Error logging in: $e');
 
       return "${e.toString()}";
     }
   }
-
-
 }
