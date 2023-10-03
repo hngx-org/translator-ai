@@ -31,10 +31,15 @@ class FAQView extends StatelessWidget {
                 child: ProductExpansionTile(
                   title: " Is it on-premise, proxy or cloud-based",
                   children: [
-                    Text(
-                        "On-premise systems require businesses to purchase equipment or to work with an outsourced provider. They have IT architectures that need routine maintenance. They may use a lot of electricity, which can add to the expense of maintenance as well. On-premise systems can require expensive service contracts, so make sure to consider that expense when making your decision.",
-                        style: GoogleFonts.nunito(
-                            fontSize: 14, fontWeight: FontWeight.w400))
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: sizer(true, 40, context),
+                      ),
+                      child: Text(
+                          "On-premise systems require businesses to purchase equipment or to work with an outsourced provider. They have IT architectures that need routine maintenance. They may use a lot of electricity, which can add to the expense of maintenance as well. On-premise systems can require expensive service contracts, so make sure to consider that expense when making your decision.",
+                          style: GoogleFonts.nunito(
+                              fontSize: 14, fontWeight: FontWeight.w400)),
+                    )
                   ],
                 ),
               ),
