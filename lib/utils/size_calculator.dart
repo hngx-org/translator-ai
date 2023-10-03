@@ -22,3 +22,5 @@ class AppConstants {
     return MediaQuery.of(context).size.width;
   }
 }
+
+
