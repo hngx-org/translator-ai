@@ -11,9 +11,15 @@ class FAQView extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
       appBar: AppBar(
-        title: Text(
-          "FAQs",
-          style: GoogleFonts.nunito(fontSize: 24, fontWeight: FontWeight.bold),
+        title:Text(
+          'FAQs',
+          style: GoogleFonts.nunito(
+            color: AppColors.primary,
+            fontSize: 24,
+            fontWeight: FontWeight.w700,
+            height: 1.0,
+            letterSpacing: 0.24,
+          ),
         ),
         backgroundColor: AppColors.whiteColor,
       ),
