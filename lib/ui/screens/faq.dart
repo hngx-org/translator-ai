@@ -29,14 +29,14 @@ class FAQView extends StatelessWidget {
                   vertical: sizer(false, 10, context),
                 ),
                 child: ProductExpansionTile(
-                  title: " Is it on-premise, proxy or cloud-based",
+                  title: "How can I change the language settings in the app?",
                   children: [
                     Padding(
                       padding: EdgeInsets.symmetric(
                         horizontal: sizer(true, 40, context),
                       ),
                       child: Text(
-                          "On-premise systems require businesses to purchase equipment or to work with an outsourced provider. They have IT architectures that need routine maintenance. They may use a lot of electricity, which can add to the expense of maintenance as well. On-premise systems can require expensive service contracts, so make sure to consider that expense when making your decision.",
+                          "To change the language settings in the app, navigate to the settings menu or profile section. Look for the language preferences option and select your desired language from the available options.",
                           style: GoogleFonts.nunito(
                               fontSize: 14, fontWeight: FontWeight.w400)),
                     )
@@ -102,8 +102,8 @@ class _ProductExpansionTileState extends State<ProductExpansionTile> {
             },
             child: Padding(
               padding: EdgeInsets.symmetric(
-                vertical: sizer(false, 20, context),
-                horizontal: sizer(true, 30, context),
+                vertical: sizer(false, 10, context),
+                horizontal: sizer(true, 20, context),
               ),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
