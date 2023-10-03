@@ -16,6 +16,24 @@ class _PasswordRecoveryState extends State<PasswordRecovery> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: Builder(
+          builder: (BuildContext context) {
+            return InkWell(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: Icon(
+                Icons.arrow_back_ios,
+                size: 23,
+                color: Color.fromRGBO(89, 51, 8, 1),
+              ),
+            );
+          },
+        ),
+      ),
       backgroundColor: AppColors.whiteColor,
       body: SafeArea(
         child: Padding(

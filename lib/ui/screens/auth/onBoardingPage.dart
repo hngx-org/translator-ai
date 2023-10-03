@@ -117,51 +117,46 @@ class OnBoardingScreen extends StatelessWidget {
                   //     fontWeight: FontWeight.bold),),
                   // const SizedBox(height: 30,),
 
-
-                        const Text(
-                          'Get Started Now!!!',
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
-                        ),
-                        Divider(
-                          color: AppColors.text1,
-                        ),
-                        SizedBox(
-                          height: 40,
-                        ),
-                        CustomButton(
-                            width: sizer(true, 313, context),
-                            height: 51,
-                            singleBigButton: true,
-                            isTextBig: false,
-                            color: AppColors.primary,
-                            content: 'Create an Account',
-                            onTap: () {
-                              Navigator.of(context)
-                                  .pushNamed(RouteHelper.signUpRoute);
-                            }),
-                        SizedBox(
-                          height: 60,
-                        ),
-                        CustomButton(
-                            width: sizer(true, 313, context),
-                            height: 51,
-                            singleBigButton: true,
-                            isTextBig: false,
-                            color: AppColors.primary,
-                            content: 'Login',
-                            onTap: () {
-                              Navigator.of(context)
-                                  .pushNamed(RouteHelper.loginRoute);
-                            }),
-                      ],
-                    ),
+                  const Text(
+                    'Get Started Now!!!',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
-
+                  Divider(
+                    color: AppColors.text1,
+                  ),
+                  SizedBox(
+                    height: 40,
+                  ),
+                  CustomButton(
+                      width: sizer(true, 313, context),
+                      height: 51,
+                      singleBigButton: true,
+                      isTextBig: false,
+                      color: AppColors.primary,
+                      content: 'Create an Account',
+                      onTap: () {
+                        Navigator.of(context)
+                            .pushNamed(RouteHelper.signUpRoute);
+                      }),
+                  SizedBox(
+                    height: 60,
+                  ),
+                  CustomButton(
+                      width: sizer(true, 313, context),
+                      height: 51,
+                      singleBigButton: true,
+                      isTextBig: false,
+                      color: AppColors.primary,
+                      content: 'Login',
+                      onTap: () {
+                        Navigator.of(context).pushNamed(RouteHelper.loginRoute);
+                      }),
+                ],
               ),
             ),
           ),
-
+        ),
+      ),
     );
   }
 }
