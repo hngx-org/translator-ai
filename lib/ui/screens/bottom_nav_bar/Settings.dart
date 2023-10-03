@@ -226,9 +226,11 @@ class _SettingsState extends State<Settings> {
                     },
                   ),
                   SettingBox(
-                    icon: Icons.lock,
+                    icon: Icons.chat,
                     text: "FAQ",
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.pushNamed(context, RouteHelper.faqRoute);
+                    },
                   ),
                 ],
               ))

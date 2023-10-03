@@ -3,6 +3,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:translator_ai/ui/screens/auth/onBoardingPage.dart';
 import 'package:translator_ai/ui/screens/auth/password_recovery.dart';
 import 'package:translator_ai/ui/screens/auth/spalshPage.dart';
+import 'package:translator_ai/ui/screens/faq.dart';
 import '../ui/home.dart';
 import '../ui/screens/HomeScreen.dart';
 import '../ui/screens/auth/forgot_password.dart';
@@ -35,6 +36,7 @@ class RouteHelper {
   static const String splashRoute = "SplashPage";
   static const String onBoardingRoute = "onBoardingPage";
   static const String passwordRecoveryRoute = "PasswordRecovery";
+  static const String faqRoute = "FaqPage";
   Route<dynamic>? generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case home:
@@ -54,6 +56,12 @@ class RouteHelper {
           type: PageTransitionType.rightToLeft,
           routeName: settings.name!,
           viewToShow: const SignIn(),
+        );
+      case faqRoute:
+        return _getTransistionPageRoute(
+          type: PageTransitionType.rightToLeft,
+          routeName: settings.name!,
+          viewToShow: const FAQView(),
         );
       case forgotPasswordRoute:
         return _getTransistionPageRoute(
