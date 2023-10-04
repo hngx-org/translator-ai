@@ -44,6 +44,7 @@ dependencies:
   shared_preferences: ^2.2.1
   hng_authentication: ^0.1.4
   language_picker: ^0.4.3
+  in_app_payment: ^0.0.1
 
 
 dev_dependencies:
