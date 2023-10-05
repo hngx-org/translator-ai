@@ -348,7 +348,9 @@ class _SignUpState extends State<SignUp> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
+                              const
+
+                              Text(
                                 "Confirm Password",
                                 style: TextStyle(
                                     fontSize: 16, fontWeight: FontWeight.w600),

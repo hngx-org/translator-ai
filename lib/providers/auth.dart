@@ -8,6 +8,7 @@ import 'package:hngx_openai/repository/openai_repository.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:translator_ai/ui/components/bottom_navigator.dart';
+import 'package:translator_ai/ui/components/loader/overlayLoader.dart';
 
 import '../core/models/http_exception.dart';
 import '../ui/components/chat_message.dart';
@@ -33,7 +34,7 @@ class Auth extends ChangeNotifier {
   get email => _email;
   get fromLanguage => fromLanguage;
   get toLanguage => toLanguage;
-  get translatedMessage => _translated_message;
+  // get translatedMessage => _translated_message;
   get credits => _credits;
   get translated => _translated;
   get messages => _messages;
@@ -73,20 +74,15 @@ class Auth extends ChangeNotifier {
           isMe: false,
           language: _toLanguage!,
         ));
-    _translated_message = value;
+    // _translated_message = value;
     notifyListeners();
     return true;
   }
 
   Future<bool> setMessage(String value) async {
     _messages.insert(
-        0,
-        ChatMessage(
-          text: value,
-          isMe: true,
-          language: _fromLanguage!
-        ));
-    _translated_message = value;
+        0, ChatMessage(text: value, isMe: true, language: _fromLanguage!));
+    // _translated_message = value;
     notifyListeners();
     return true;
   }
@@ -252,6 +248,8 @@ class Auth extends ChangeNotifier {
   }
 
   Future generatePrompt(context, String userInput) async {
+    LoadingOverlay.of(context).show();
+
     String? cookie = await getString("cookie");
     print(",,,,,,cookie1 $cookie");
     String session = extractSessionToken(cookie!);
@@ -273,13 +271,25 @@ class Auth extends ChangeNotifier {
           print("${message}");
           reduceSetCredits();
           // await setTranslatedMessage(message);
+
           notifyListeners();
+
           return message;
         }
+      } else {
+        print("errrrrrrrrrrrrr${response}");
+        // reduceSetCredits();
+        // await setTranslatedMessage(message);
+        // LoadingOverlay.of(context).hide();
+        notifyListeners();
+
+        return response;
       }
     } catch (e) {
+      // LoadingOverlay.of(context).hide();
+
       showSnackbar(context, Colors.red, e.toString());
-      return "${e.toString()}";
+      return "hiiii${e.toString()}";
     }
   }
 
