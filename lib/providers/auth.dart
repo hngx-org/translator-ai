@@ -16,7 +16,7 @@ import '../utils/colors.dart';
 
 //remember to change to with
 class Auth extends ChangeNotifier {
-  int? _userId;
+  String? _userId;
   String? _email;
   String? _name;
   String? _fromLanguage = "English";
@@ -40,7 +40,7 @@ class Auth extends ChangeNotifier {
   get messages => _messages;
   get isLoading => _isLoading;
   // get countLen => _translated.length;
-  int? get userId {
+  String? get userId {
     return _userId;
   }
 
@@ -87,7 +87,7 @@ class Auth extends ChangeNotifier {
     return true;
   }
 
-  Future<bool> setUserId(int value) async {
+  Future<bool> setUserId(String value) async {
     _userId = value;
     notifyListeners();
     return true;
@@ -179,6 +179,7 @@ class Auth extends ChangeNotifier {
       // await getUserProfile();
       await setName(response.name);
       await setEmail(response.email);
+      await setUserId(response.id);
       await setCredits(response.credits);
       await saveString("cookie", response.cookie);
       notifyListeners();
