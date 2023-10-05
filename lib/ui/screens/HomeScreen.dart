@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hngx_openai/repository/openai_repository.dart';
 import 'package:language_picker/language_picker_dropdown.dart';
 import 'package:language_picker/language_picker_dropdown_controller.dart';
 import 'package:language_picker/language_picker_dropdown_controller.dart';
@@ -8,8 +9,12 @@ import 'package:language_picker/language_picker_dropdown_controller.dart';
 import 'package:language_picker/languages.dart';
 import 'package:language_picker/languages.g.dart';
 import 'package:provider/provider.dart';
+import 'package:translator_ai/ui/components/loader/overlayLoader.dart';
+import 'package:translator_ai/ui/screens/bottom_nav_bar/Subscription.dart';
+import '../../helpers/router.dart';
 import '../../providers/auth.dart';
 import '../../utils/colors.dart';
+import '../../utils/size_calculator.dart';
 import '../components/chat_message.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -24,25 +29,65 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final TextEditingController _messageController = TextEditingController();
   List<ChatMessage> _messages = [];
+  List<ChatMessage> _translated = [];
+
+  List<String> translated = [];
   Language toLanguage = Languages.french;
   Language fromLanguage = Languages.english;
   late LanguagePickerDropdownController controllerFrom;
   late LanguagePickerDropdownController controllerTo;
-
+  String translatedText = "";
+  int counter = 0;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    controllerFrom = LanguagePickerDropdownController(toLanguage);
-    controllerTo = LanguagePickerDropdownController(fromLanguage);
+    controllerFrom = LanguagePickerDropdownController(fromLanguage);
+    controllerTo = LanguagePickerDropdownController(toLanguage);
+    // setMessages();
   }
 
-  void _handleSubmittedMessage(String text) {
+  void setMessages() {
+    final authProvider = Provider.of<Auth>(context, listen: false);
+    _messages = authProvider.messages;
+    _translated = authProvider.translated;
+  }
+
+  Future _sendPrompt(BuildContext context, text, Auth authProvider) async {
+    // print("${authProvider.translated}");
+
+    try {
+      final response = await authProvider.generatePrompt(context, text);
+
+      // setState(() {
+      //   translatedText = response;
+      //   _translated.insert(0, ChatMessage(text: response, isMe: false,));
+      // });
+      await authProvider.setTranslatedMessage(response);
+      authProvider.setLoading(false);
+      LoadingOverlay.of(context).hide();
+      setState(() {});
+      print(">>>list2 ${authProvider.translated}");
+    } catch (e) {}
+  }
+
+  Future<void> _handleSubmittedMessage(String text, Auth authProvider) async {
     if (text.isNotEmpty) {
       _messageController.clear();
-      setState(() {
-        _messages.insert(0, ChatMessage(text: text));
-      });
+      // setState(() {
+      //
+      // });
+
+      // setState(() {
+      //   _messages.insert(0, ChatMessage(text: text, isMe: true,));
+      //   counter++;
+      // });
+      authProvider.setMessage(text);
+      authProvider.setLoading(true);
+
+      print(">>>list1 ${authProvider.messages}");
+      LoadingOverlay.of(context).show();
+      await _sendPrompt(context, text, authProvider);
     }
   }
 
@@ -109,6 +154,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   IconButton(
                     onPressed: () async {
+                       authProvider
+                          .setfromLanguage(controllerTo.value.name.toString());
+                       authProvider
+                          .settoLanguage(controllerFrom.value.name.toString());
                       setState(() {
                         var temp = controllerFrom.value;
                         controllerFrom.value = controllerTo.value;
@@ -116,10 +165,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         controllerTo.value = temp;
                         toLanguage = temp;
                       });
-                      await authProvider
-                          .setfromLanguage(controllerTo.value.name.toString());
-                      await authProvider
-                          .settoLanguage(controllerFrom.value.name.toString());
+
                     },
                     icon: const Icon(
                       Icons.compare_arrows_sharp,
@@ -148,9 +194,27 @@ class _HomeScreenState extends State<HomeScreen> {
             Expanded(
               child: ListView.builder(
                 reverse: true,
-                itemCount: _messages.length,
+                itemCount: authProvider.messages.length,
                 itemBuilder: (context, index) {
-                  return _messages[index];
+                  return Column(
+                    children: [
+                      authProvider.messages[index],
+
+                      // ( index + 1  > authProvider.translated.length && index == 0)
+                      //     ? SizedBox(
+                      //         height: 50,
+                      //         width: 50,
+                      //         child: CircularProgressIndicator(
+                      //           color: AppColors.primary,
+                      //         ),
+                      //       )
+                      //     : authProvider.translated[index],
+                      // ( index + 1  > authProvider.translated.length)
+                      //     ? FullQuoteBottomSheet(isLoading: _isLoading)
+                      // :
+                      authProvider.translated[index]
+                    ],
+                  );
                 },
               ),
             ),
@@ -160,7 +224,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 borderRadius: BorderRadius.circular(15),
                 color: Theme.of(context).cardColor,
               ),
-              child: _buildTextComposer(),
+              child: _buildTextComposer(authProvider),
             ),
           ],
         ),
@@ -168,7 +232,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildTextComposer() {
+  Widget _buildTextComposer(Auth authProvider) {
     return IconTheme(
       data: IconThemeData(color: Theme.of(context).colorScheme.secondary),
       child: Container(
@@ -182,16 +246,59 @@ class _HomeScreenState extends State<HomeScreen> {
             Flexible(
               child: TextField(
                 controller: _messageController,
-                onSubmitted: _handleSubmittedMessage,
+                // onSubmitted: _handleSubmittedMessage,
                 decoration: InputDecoration.collapsed(
                   hintText: 'Send a message',
                 ),
               ),
             ),
             IconButton(
-              icon: Icon(Icons.send),
-              onPressed: () => _handleSubmittedMessage(_messageController.text),
-            ),
+                icon: Icon(Icons.send),
+                onPressed: () {
+                  print("<<<<<credits ${authProvider.credits}");
+                  authProvider.credits > 0
+                      ? _handleSubmittedMessage(
+                          _messageController.text, authProvider)
+                      : showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text("Credits Finished"),
+                              content: Text("Your free 3 credits are used up."),
+                              actions: <Widget>[
+                                // "OK" Button
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context)
+                                        .pop(); // Close the dialog
+                                    // Add your logic for the "OK" button here
+                                  },
+                                  child: Text("OK"),
+                                ),
+
+                                // "Cancel" Button
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context)
+                                        .pop(); // Close the dialog
+
+                                    // Navigator.push(context, MaterialPageRoute(
+                                    //     builder: (context) => SubscriptionScreen()));
+                                    // Navigator.pushNamed(context, RouteHelper.)
+                                    // Add your logic for the "Cancel" button here
+                                  },
+                                  child: Text("Subscribe"),
+                                ),
+                              ],
+                            );
+                          });
+                  // showDialog(context: context, builder: (context ) =>
+                  // Center(child: Container(
+                  //   height: 200, width: 200,
+                  //     child: Text ("Sorry your credits are over"))),
+                  //  )
+                  ;
+                })
           ],
         ),
       ),

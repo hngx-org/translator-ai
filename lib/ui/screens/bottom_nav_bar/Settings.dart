@@ -19,45 +19,45 @@ class Settings extends StatefulWidget {
 class _SettingsState extends State<Settings> {
   bool _isLoading = false;
 
-  Future<String> _profile(BuildContext context) async {
-    setState(() {
-      _isLoading = true;
-    });
-    final authProvider = Provider.of<Auth>(context, listen: false);
-
-    try {
-      // Call the signUp method from your provider
-      final userData = await authProvider.getUserProfile();
-      setState(() {
-        _isLoading = false;
-      });
-      if (userData == "successsuccess") {
-        return "success";
-      } else {
-        return "";
-      }
-    } catch (error) {
-      // Handle the error, e.g., show an error message
-      print(error);
-
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: const Text('Error'),
-          content: Text('Something went wrong: $error'),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('OK'),
-              onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog
-              },
-            ),
-          ],
-        ),
-      );
-      return "${error.toString()}";
-    }
-  }
+  // Future<String> _profile(BuildContext context) async {
+  //   setState(() {
+  //     _isLoading = true;
+  //   });
+  //   final authProvider = Provider.of<Auth>(context, listen: false);
+  //
+  //   try {
+  //     // Call the signUp method from your provider
+  //     final userData = await authProvider.getUserProfile();
+  //     setState(() {
+  //       _isLoading = false;
+  //     });
+  //     if (userData == "successsuccess") {
+  //       return "success";
+  //     } else {
+  //       return "";
+  //     }
+  //   } catch (error) {
+  //     // Handle the error, e.g., show an error message
+  //     print(error);
+  //
+  //     showDialog(
+  //       context: context,
+  //       builder: (context) => AlertDialog(
+  //         title: const Text('Error'),
+  //         content: Text('Something went wrong: $error'),
+  //         actions: <Widget>[
+  //           TextButton(
+  //             child: const Text('OK'),
+  //             onPressed: () {
+  //               Navigator.of(context).pop(); // Close the dialog
+  //             },
+  //           ),
+  //         ],
+  //       ),
+  //     );
+  //     return "${error.toString()}";
+  //   }
+  // }
 
   Future<String> _submit(BuildContext context) async {
     setState(() {
@@ -99,15 +99,15 @@ class _SettingsState extends State<Settings> {
     }
   }
 
-  Future<void> getProfile() async {
-    await _profile(context);
-  }
+  // Future<void> getProfile() async {
+  //   await _profile(context);
+  // }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    getProfile();
+    // getProfile();
   }
 
   @override
@@ -188,7 +188,7 @@ class _SettingsState extends State<Settings> {
                       if (res == "success") {
                         Navigator.pushReplacementNamed(
                             context, RouteHelper.loginRoute);
-                      } else {}
+                      }
                     } catch (e) {
                       print("$e");
                     }
