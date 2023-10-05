@@ -59,15 +59,46 @@ class _HomeScreenState extends State<HomeScreen> {
     try {
       final response = await authProvider.generatePrompt(context, text);
 
-      // setState(() {
-      //   translatedText = response;
-      //   _translated.insert(0, ChatMessage(text: response, isMe: false,));
-      // });
-      await authProvider.setTranslatedMessage(response);
-      authProvider.setLoading(false);
-      LoadingOverlay.of(context).hide();
-      setState(() {});
-      print(">>>list2 ${authProvider.translated}");
+      if (response.startsWith('E')) {
+        List<String> parts = response.split(':');
+        if (parts.length == 2) {
+          String message2 = parts[1].trim();
+          // if (message2.startsWith('T')) {
+          // await authProvider.setTranslatedMessage(message2);
+          if (message2.startsWith('T')) {
+            authProvider.setTranslatedMessage(message2);
+            print(">>>>>>>>$message2");
+          } else {
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: Text("Error"),
+                    content: Text(message2),
+                    actions: <Widget>[
+                      // "OK" Button
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop(); // Close the dialog
+                          // Add your logic for the "OK" button here
+                        },
+                        child: Center(child: Text("OK")),
+                      ),
+                    ],
+                  );
+                });
+          }
+        }
+      } else {
+        // await setTranslatedMessage(message);
+        // await authProvider.setTranslatedMessage(response);
+
+        authProvider.setTranslatedMessage(response);
+        // authProvider.setLoading(false);
+        // LoadingOverlay.of(context).hide();
+        // setState(() {});
+        // print(">>>list2 ${authProvider.translated}");
+      }
     } catch (e) {}
   }
 
@@ -82,18 +113,20 @@ class _HomeScreenState extends State<HomeScreen> {
       //   _messages.insert(0, ChatMessage(text: text, isMe: true,));
       //   counter++;
       // });
-      authProvider.setMessage(text);
-      authProvider.setLoading(true);
+      await authProvider.setMessage(text);
+      // authProvider.setLoading(true);
 
       print(">>>list1 ${authProvider.messages}");
-      LoadingOverlay.of(context).show();
       await _sendPrompt(context, text, authProvider);
+      LoadingOverlay.of(context).hide();
+      setState(() {});
     }
   }
 
   @override
   Widget build(BuildContext context) {
     final authProvider = Provider.of<Auth>(context, listen: false);
+    // final authProvider2 = Provider.of<Auth>(context, listen: false);
 
     return Scaffold(
       appBar: AppBar(
@@ -130,7 +163,8 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           children: <Widget>[
             Container(
-              padding: const EdgeInsets.only(left: 20, right:20, top: 10, bottom: 10),
+              padding: const EdgeInsets.only(
+                  left: 20, right: 20, top: 10, bottom: 10),
               margin: EdgeInsets.all(20),
               decoration: BoxDecoration(
                   color: AppColors.primaryLight,
@@ -155,9 +189,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   IconButton(
                     onPressed: () async {
-                       authProvider
+                      authProvider
                           .setfromLanguage(controllerTo.value.name.toString());
-                       authProvider
+                      authProvider
                           .settoLanguage(controllerFrom.value.name.toString());
                       setState(() {
                         var temp = controllerFrom.value;
@@ -166,7 +200,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         controllerTo.value = temp;
                         toLanguage = temp;
                       });
-
                     },
                     icon: const Icon(
                       Icons.compare_arrows_sharp,
@@ -249,8 +282,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 controller: _messageController,
                 // onSubmitted: _handleSubmittedMessage,
                 decoration: InputDecoration.collapsed(
-                  hintText: 'Send a message',
-                ),
+                    hintText: 'Send a message',
+                    hintStyle: GoogleFonts.nunito()),
               ),
             ),
             IconButton(
