@@ -22,14 +22,6 @@ class RouteHelper {
   static const String home = "Home";
   static const String adminHome = "Home_Admin";
   static const String homeRoute = "HomeScreen";
-  static const String adminHomeRoute = "Admin_HomeScreen";
-  static const String adminViewWorkerRoute = "Admin_View_CoWorkers";
-  static const String inviteWorkerRoute = "Admin_Invite_CoWorkers";
-  static const String giftFreeLunchScreen = "GiftFreeLunchScreen";
-  static const String giftFreeLunchScreen2 = "GiftFreeLunchScreen2";
-  static const String giftFreeLunchScreen3 = "GiftFreeLunchScreen3";
-  static const String notificationsRoute = "NotificationScreen";
-  static const String userProfileRoute = "GiftFreeLunchScreen3";
   static const String withdrawalRoute = "WithdrawalScreen";
   static const String withdrawalConfirmRoute = "WithdrawalConfirmScreen";
   static const String settingsRoute = "SettingScreen";
@@ -37,6 +29,8 @@ class RouteHelper {
   static const String onBoardingRoute = "onBoardingPage";
   static const String passwordRecoveryRoute = "PasswordRecovery";
   static const String faqRoute = "FaqPage";
+  static const String subscriptionRoute = "SubscriptionScreen";
+
   Route<dynamic>? generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case home:
@@ -87,12 +81,6 @@ class RouteHelper {
           routeName: settings.name!,
           viewToShow: const SignUp(),
         );
-      case notificationsRoute:
-        return _getTransistionPageRoute(
-          type: PageTransitionType.bottomToTop,
-          routeName: settings.name!,
-          viewToShow: const SubscriptionScreen(),
-        );
 
       case settingsRoute:
         return _getTransistionPageRoute(
@@ -118,6 +106,12 @@ class RouteHelper {
           routeName: settings.name!,
           viewToShow: const PasswordRecovery(),
         );
+      case subscriptionRoute:
+        return _getPageRoute(
+          routeName: settings.name!,
+          viewToShow: const SubscriptionScreen(),
+        );
+
 
       default:
         return MaterialPageRoute(

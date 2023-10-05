@@ -232,6 +232,12 @@ class _SettingsState extends State<Settings> {
                       Navigator.pushNamed(context, RouteHelper.faqRoute);
                     },
                   ),
+                  SettingBox(
+                    icon: Icons.token,
+                    text: "Trial: " + "${authProvider.credits}" + " left",
+                    onTap: () {
+                    },
+                  ),
                 ],
               ))
             ],

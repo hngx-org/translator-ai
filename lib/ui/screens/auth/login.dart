@@ -10,6 +10,7 @@ import '../../../providers/auth.dart';
 import '../../../utils/colors.dart';
 import '../../../utils/size_calculator.dart';
 import '../../components/custom_button.dart';
+import '../../components/loader/overlayLoader.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
@@ -37,9 +38,9 @@ class _SignInState extends State<SignIn> {
   }
 
   Future<String> _submit(BuildContext context) async {
-    setState(() {
-      _isLoading = true;
-    });
+    // setState(() {
+    //   _isLoading = true;
+    // });
     final authProvider = Provider.of<Auth>(context, listen: false);
 
     try {
@@ -51,42 +52,61 @@ class _SignInState extends State<SignIn> {
 
       // Call the signUp method from your provider
       final userData = await authProvider.login(email, password);
-      setState(() {
-        _isLoading = false;
-      });
+      // setState(() {
+      //   _isLoading = false;
+      // });
       if (userData == "successsuccess") {
+        LoadingOverlay.of(context).hide();
+
         showSnackbar(context, Colors.green, "Successfully Logged In");
         return "success";
       } else {
+        LoadingOverlay.of(context).hide();
+
+        showSnackbar(context, Colors.red, "invalid Credentails");
+
         return "";
       }
     } catch (error) {
-      // Handle the error, e.g., show an error message
-      print(error);
+      LoadingOverlay.of(context).hide();
 
-      showSnackbar(context, Colors.red, "Something went wrong");
-
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: const Text('Error'),
-          content: Text('Something went wrong: $error'),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('OK'),
-              onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog
-              },
-            ),
-          ],
-        ),
-      );
-      setState(() {
-        showSnackbar(context, Colors.red, "Something went wrong");
-      });
-
+      //
+      // setState(() {
+      //   _isLoading = false;
+      // });
       return "${error.toString()}";
+
     }
+    //   // Handle the error, e.g., show an error message
+    //   print(error);
+    //
+    //   showSnackbar(context, Colors.red, "Something went wrong");
+    //
+    //   // showDialog(
+    //   //   context: context,
+    //   //   builder: (context) => AlertDialog(
+    //   //     title: const Text('Error'),
+    //   //     content: Text('Something went wrong: $error'),
+    //   //     actions: <Widget>[
+    //   //       TextButton(
+    //   //         child: const Text('OK'),
+    //   //         onPressed: () {
+    //   //           Navigator.of(context).pop(); // Close the dialog
+    //   //         },
+    //   //       ),
+    //   //     ],
+    //   //   ),
+    //   // );
+    //   // setState(() {
+    //   //   showSnackbar(context, Colors.red, "Something went wrong");
+    //   // });
+    //   showSnackbar(context, Colors.red,
+    //       'Invalid credentials. Please check your email and password.');
+    //   setState(() {
+    //     _isLoading = false;
+    //   });
+    //   return "${error.toString()}";
+    // }
   }
 
   @override
@@ -122,17 +142,7 @@ class _SignInState extends State<SignIn> {
         ),
       ),
       body: SingleChildScrollView(
-        child: _isLoading
-            ? Container(
-                color: Colors.transparent,
-                height: AppConstants.screenHeight(context) * 0.5,
-                child: Center(
-                  child: CircularProgressIndicator(
-                    color: AppColors.primary,
-                  ),
-                ),
-              )
-            : Container(
+        child: Container(
                 padding: const EdgeInsets.all(20),
                 child: Form(
                   key: _formkey,
@@ -282,23 +292,26 @@ class _SignInState extends State<SignIn> {
                               // Navigator.of(context)
                               //     .pushNamed(RouteHelper.home);
                               if (_formkey.currentState!.validate()) {
-                                setState(() {
-                                  _isLoading = true;
-                                });
+                                // setState(() {
+                                //   _isLoading = true;
+                                //
+                                // });
+                                LoadingOverlay.of(context).show();
+
                                 try {
                                   final res = await _submit(context);
 
                                   if (res == "success") {
                                     Navigator.of(context)
                                         .pushNamed(RouteHelper.home);
-                                    setState(() {
-                                      _isLoading = false;
-                                    });
+
                                   }
-                                } catch (e) {
-                                  setState(() {
-                                    _isLoading = false;
-                                  });
+                                }
+                                catch (e) {
+                                  // setState(() {
+                                  //   _isLoading = false;
+                                  // });
+
                                   showSnackbar(context, Colors.red,
                                       "Something went wrong");
 
