@@ -4,8 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:in_app_payment/buttons/pay_buttons.dart';
+import 'package:provider/provider.dart';
 
 import '../../../helpers/router.dart';
+import '../../../providers/auth.dart';
 import '../../../utils/colors.dart';
 import '../../../utils/size_calculator.dart';
 import '../../components/custom_button.dart';
@@ -21,6 +23,8 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
   final pay = HNGPay();
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<Auth>(context, listen: false);
+
     return Scaffold(
       appBar: AppBar(
         title: Center(child: Text(
@@ -46,9 +50,9 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
             SizedBox(height: 20),
             Container(
               child: Platform.isIOS
-                  ? pay.applePay(amountToPay: '5')
+                  ? pay.applePay(context,amountToPay: '5', userID: '${authProvider.userId}')
                   : Platform.isAndroid
-                  ? pay.googlePay(amountToPay: '5')
+                  ? pay.googlePay(context,amountToPay: '5', userID: '${authProvider.userId}')
                   : null, // You may want to handle unsupported platforms differently
             ),
 
