@@ -23,18 +23,18 @@ class ChatMessage extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          // Container(
-          //
-          //   margin: const EdgeInsets.only(right: 16.0),
-          //   child:  CircleAvatar(
-          //     radius: 30,
-          //     backgroundColor:   AppColors.primaryLight
-          //     ,
-          //     child: Text('${authProvider.name}',style: TextStyle(
-          //       fontWeight: FontWeight.bold,
-          //     ),),
-          //   ),
-          // ),
+          isMe?
+          Container(
+
+            margin: const EdgeInsets.only(right: 16.0),
+            child:  CircleAvatar(
+              radius: 30,
+              backgroundColor:   AppColors.primaryLight,
+              backgroundImage:AssetImage('images/naruto.png'),
+              // child: Image.asset('images/naruto.png'),
+              ),
+            )
+          :SizedBox(),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -64,6 +64,17 @@ class ChatMessage extends StatelessWidget {
               ],
             ),
           ),
+          isMe?SizedBox():
+          Container(
+
+            margin: const EdgeInsets.only(right: 16.0),
+            child:  CircleAvatar(
+              radius: 30,
+              backgroundColor:   AppColors.primaryLight,
+    backgroundImage:AssetImage('images/robot.jpeg'),
+
+    ),
+          )
         ],
       ),
     );
@@ -99,14 +110,14 @@ class _ChatBubbleState extends State<ChatBubble> {
 
     return Container(
       width: AppConstants.screenWidth(context),
-      height: 100,
+      // height: 70,
       padding: EdgeInsets.all(20.0),
       margin: EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
       decoration: BoxDecoration(
         color: widget.isMe ? AppColors.primaryLight : AppColors.primary,
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(12.0),
-          topRight: Radius.circular(0.0),
+          topLeft: widget.isMe? Radius.circular(0.0):Radius.circular(12.0),
+          topRight: widget.isMe?Radius.circular(12.0):Radius.circular(0.0),
           bottomLeft: Radius.circular(12.0),
           bottomRight: Radius.circular(12.0),
         ),
@@ -114,6 +125,8 @@ class _ChatBubbleState extends State<ChatBubble> {
       child: Column(
         children: [
           Text(
+            maxLines:99,
+            // overflow:TextOverflow.clip,
             widget.message,
             style: TextStyle(
               fontSize: 20,
