@@ -126,11 +126,12 @@ class _HomeScreenState extends State<HomeScreen> {
         automaticallyImplyLeading: false,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(12.0),
+        padding: const EdgeInsets.all(8.0),
         child: Column(
           children: <Widget>[
             Container(
-              padding: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.only(left: 20, right:20, top: 10, bottom: 10),
+              margin: EdgeInsets.all(20),
               decoration: BoxDecoration(
                   color: AppColors.primaryLight,
                   borderRadius: BorderRadius.circular(25)),
@@ -138,7 +139,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    width: 150,
+                    width: 100,
                     decoration:
                         BoxDecoration(borderRadius: BorderRadius.circular(7)),
                     child: LanguagePickerDropdown(
@@ -174,7 +175,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   Container(
-                    width: 150,
+                    width: 100,
                     decoration:
                         BoxDecoration(borderRadius: BorderRadius.circular(7)),
                     child: LanguagePickerDropdown(
@@ -273,22 +274,24 @@ class _HomeScreenState extends State<HomeScreen> {
                                         .pop(); // Close the dialog
                                     // Add your logic for the "OK" button here
                                   },
-                                  child: Text("OK"),
+                                  child: Center(child: Text("OK")),
                                 ),
 
                                 // "Cancel" Button
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.of(context)
-                                        .pop(); // Close the dialog
-
-                                    // Navigator.push(context, MaterialPageRoute(
-                                    //     builder: (context) => SubscriptionScreen()));
-                                    // Navigator.pushNamed(context, RouteHelper.)
-                                    // Add your logic for the "Cancel" button here
-                                  },
-                                  child: Text("Subscribe"),
-                                ),
+                                // TextButton(
+                                //   onPressed: () {
+                                //     Navigator.of(context).pushNamed(RouteHelper.subscriptionRoute);
+                                //
+                                //     // Navigator.of(context)
+                                //     //     .pop(); // Close the dialog
+                                //
+                                //     // Navigator.push(context, MaterialPageRoute(
+                                //     //     builder: (context) => SubscriptionScreen()));
+                                //     // Navigator.pushNamed(context, RouteHelper.)
+                                //     // Add your logic for the "Cancel" button here
+                                //   },
+                                //   child: Text("Subscribe"),
+                                // ),
                               ],
                             );
                           });

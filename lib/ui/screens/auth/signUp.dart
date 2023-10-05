@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:translator_ai/ui/components/loader/overlayLoader.dart';
 
 import '../../../helpers/router.dart';
 import '../../../providers/auth.dart';
@@ -67,16 +68,23 @@ class _SignUpState extends State<SignUp> {
       // Call the signUp method from your provider
       final userData = await authProvider.signUp(fullname, email, password);
       if (userData == "successsuccess") {
+        LoadingOverlay.of(context).hide();
         showSnackbar(context, Colors.green, "Successfully Logged In");
 
         return "success";
       } else {
+        LoadingOverlay.of(context).hide();
+
+        showSnackbar(context, Colors.red, "Something went wrong");
+
         return "";
       }
       setState(() {
         isLoading = false;
       });
     } catch (error) {
+      LoadingOverlay.of(context).hide();
+
       // Handle the error, e.g., show an error message
       print(error);
       showSnackbar(context, Colors.red, "Something went wrong");
@@ -141,17 +149,7 @@ class _SignUpState extends State<SignUp> {
             // Dismiss the keyboard when the user taps on the screen
             FocusScope.of(context).unfocus();
           },
-          child: isLoading
-              ? Container(
-                  color: Colors.transparent,
-                  height: AppConstants.screenHeight(context) * 0.5,
-                  child: Center(
-                    child: CircularProgressIndicator(
-                      color: AppColors.primary,
-                    ),
-                  ),
-                )
-              : SingleChildScrollView(
+          child: SingleChildScrollView(
                   child: Form(
                     key: _formkey,
                     child: Container(
@@ -334,12 +332,12 @@ class _SignUpState extends State<SignUp> {
                               SizedBox(
                                 height: 10,
                               ),
-                              // Text(
-                              //     'Password must be at least 8 characters long, contain at least one number and one special character',
-                              //     style: GoogleFonts.nunito(
-                              //         fontSize: sizer(true, 13, context),
-                              //         color: const Color.fromARGB(255, 119, 42, 196),
-                              //         fontWeight: FontWeight.w500))
+                              Text(
+                                  'Password must be at least 8 characters long, contain at least one number and one special character',
+                                  style: GoogleFonts.nunito(
+                                      fontSize: sizer(true, 13, context),
+                                      color: const Color.fromARGB(255, 119, 42, 196),
+                                      fontWeight: FontWeight.w500))
                             ],
                           ),
                         ),
@@ -444,31 +442,33 @@ class _SignUpState extends State<SignUp> {
                                     content: 'Sign Up',
                                     onTap: () async {
                                       if (_formkey.currentState!.validate()) {
-                                        setState(() {
-                                          isLoading = true;
-                                        });
+                                        // setState(() {
+                                        //   isLoading = true;
+                                        // });
+                                        LoadingOverlay.of(context).show();
 
                                         try {
                                           final res = await _submit(context);
                                           if (res == "success") {
                                             Navigator.of(context).pushNamed(
                                                 RouteHelper.loginRoute);
-                                            setState(() {
-                                              isLoading = false;
-                                            });
+                                            // setState(() {
+                                            //   isLoading = false;
+                                            // });
+                                            // LoadingOverlay.of(context).hide();
+
                                           }
                                         } catch (e) {
-                                          setState(() {
-                                            isLoading = false;
-                                          });
+                                          // setState(() {
+                                          //   isLoading = false;
+                                          // });
+
                                           print("$e");
                                           showSnackbar(context, Colors.red,
                                               "Something went wrong");
                                         }
                                       }
-                                      setState(() {
-                                        isLoading = false;
-                                      });
+
                                       // Navigator.of(context)//     .pushNamed(RouteHelper.loginRoute);
                                       // _submit(context);
                                     }),
